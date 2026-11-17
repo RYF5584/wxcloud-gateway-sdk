@@ -1,0 +1,92 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wxcloud-gateway-sdk"
+version = "1.0.0"
+description = "WeChat cloud gateway V3 and cloud run (callContainer) request client and packet codec"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+authors = [
+    { name = "RYF5584", email = "1043695584@qq.com" },
+]
+keywords = [
+    "wechat",
+    "wxcloud",
+    "gateway",
+    "v3",
+    "cloud-function",
+    "miniprogram",
+    "cloud-run",
+    "callcontainer",
+    "cloudbase",
+    "container",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "cryptography>=42.0.0",
+    "cramjam>=2.11.0",
+    "protobuf>=4.25.1",
+    "requests>=2.31.0",
+    "aiohttp>=3.9.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/RYF5584/wxcloud-gateway-sdk"
+Repository = "https://github.com/RYF5584/wxcloud-gateway-sdk"
+Issues = "https://github.com/RYF5584/wxcloud-gateway-sdk/issues"
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.11.0",
+    "mypy>=1.13.0",
+    "pytest>=8.0.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wxcloud_gateway_sdk"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/wxcloud_gateway_sdk" = "wxcloud_gateway_sdk"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/wxcloud_gateway_sdk",
+    "proto",
+    "scripts",
+    "README.md",
+    "LICENSE",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+# protoc 生成的代码不做 lint（换行/导入顺序由生成器决定）
+"src/wxcloud_gateway_sdk/wxcloud_pb2.py" = ["ALL"]
+
+[tool.mypy]
+python_version = "3.8"
+strict = true
+ignore_missing_imports = true

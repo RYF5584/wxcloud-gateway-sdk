@@ -1,0 +1,69 @@
+// WeChat Cloud Gateway SDK protocol definitions.
+//
+// Author: RYF5584
+//     WeChat: RSComapnyCEO
+//     QQ: 1043695584
+//     Telegram: ryf5584
+//     GitHub: https://github.com/RYF5584
+
+syntax = "proto3";
+
+package wxcloud_gateway_sdk;
+
+option java_package = "com.wxcloud.gateway.sdk";
+option java_multiple_files = true;
+
+// V3 protocol header containing protocol metadata.
+message V3Header {
+  uint64 encryptionTimestamp = 1;
+  string compression = 2;
+  uint64 userTimeout = 3;
+  uint64 libBuildTs = 4;
+  string appProtocol = 5;
+}
+
+// HTTP header key-value pair.
+message HTTPHeader {
+  string key = 1;
+  string value = 2;
+}
+
+// HTTP request body (PB mode).
+message HTTPRequest {
+  string method = 1;
+  repeated HTTPHeader header = 2;
+  bytes body = 3;
+  string callId = 4;
+}
+
+// HTTP response body (PB mode).
+message HTTPResponse {
+  uint32 statusCode = 1;
+  repeated HTTPHeader header = 2;
+  bytes bodyBuffer = 3;
+  string bodyString = 4;
+}
+
+// qbase metadata (Cloud Run stdpriv channel).
+message QBaseMeta {
+  bool firstLaunch = 1;
+  string sessionId = 2;
+  string sdkVersion = 3;
+  bool filterUserInfo = 4;
+}
+
+// qbase options (Cloud Run stdpriv channel).
+message QBaseOptions {
+  string env = 1;
+  string appid = 2;
+  string region = 3;
+}
+
+// qbase API data (Cloud Run stdpriv channel payload).
+message QBaseApiData {
+  string qbaseApiName = 1;
+  QBaseMeta qbaseMeta = 2;
+  QBaseOptions qbaseOptions = 3;
+  string qbaseReq = 4;
+  string cliReqId = 5;
+}
